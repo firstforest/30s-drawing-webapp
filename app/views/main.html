@@ -9,6 +9,44 @@
 
 <embed src="http://www.posemaniacs.com/pose/thirtysecond.swf" width="480" height="480"></embed>
 
+<canvas id="myCanvas" width="640" height="480">
+HTML5　Canvasに対応したブラウザーを使用してください。
+</canvas>
+<script>
+var drawFlag = false;
+var oldX = 0;
+var oldY = 0;
+
+    var can = document.getElementById("myCanvas");
+    can.addEventListener("mousemove", draw, true);
+    can.addEventListener("mousedown", function(e){
+        drawFlag = true;
+        oldX = e.offsetX;
+	console.log(oldX);
+        oldY = e.offsetY;
+    }, false);
+    can.addEventListener("mouseup", function(){
+        drawFlag = false;
+    }, false);
+// 描画処理
+function draw(e){
+    if (!drawFlag) return;
+    var x = e.offsetX;
+    var y = e.offsetY;
+    var can = document.getElementById("myCanvas");
+    var context = can.getContext("2d");
+    context.strokeStyle = "rgba(255,0,0,1)";
+    context.lineWidth = 1;
+    context.beginPath();
+    context.moveTo(oldX, oldY);
+    context.lineTo(x, y);
+    context.stroke();
+    context.closePath();
+    oldX = x;
+    oldY = y;
+}
+</script>
+
 <div class="footer">
   <p>♥ from the Yeoman team</p>
 </div>
